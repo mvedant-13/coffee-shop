@@ -1,0 +1,179 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(58, 36, 24, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-md);
+}
+
+.modal-card {
+  background-color: var(--color-cream);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 900px;
+  box-shadow: 0 40px 100px rgba(58, 36, 24, 0.25);
+  overflow: hidden;
+  position: relative;
+  animation: modalIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(58, 36, 24, 0.06);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: var(--color-espresso);
+  z-index: 10;
+  transition: var(--transition-quick);
+}
+
+.modal-close:hover {
+  background-color: var(--color-espresso);
+  color: var(--color-cream);
+}
+
+.modal-layout {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+}
+
+.modal-image-col {
+  overflow: hidden;
+}
+
+.modal-image {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  object-fit: cover;
+  display: block;
+}
+
+.modal-info {
+  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--color-green);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.modal-title {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.modal-tagline {
+  font-size: 1.1rem;
+  opacity: 0.7;
+  margin-bottom: var(--spacing-md);
+}
+
+/* Sensory bars */
+.sensory-profile {
+  border-top: 1px solid rgba(58, 36, 24, 0.08);
+  padding-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.profile-header,
+.ingredients-header {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.profile-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bar-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bar-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.bar-track {
+  width: 100%;
+  height: 6px;
+  background-color: var(--color-cream-dark);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background-color: var(--color-green);
+  border-radius: 4px;
+  transition: width 0.8s ease;
+}
+
+/* Ingredients */
+.ingredients-section {
+  border-top: 1px solid rgba(58, 36, 24, 0.08);
+  padding-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.ingredients-text {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal-card {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-image {
+    min-height: 220px;
+  }
+
+  .modal-info {
+    padding: var(--spacing-md);
+  }
+}

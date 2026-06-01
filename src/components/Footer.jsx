@@ -1,43 +1,46 @@
-import React from 'react';
+import { useLocation, Link } from "react-router-dom";
+import "./Footer.css";
 
-export default function Footer({ activeView, setActiveView }) {
-  const pageIndexes = {
-    home: '01 / HOME',
-    shop: '02 / SHOP',
-    story: '03 / STORY',
-    stores: '04 / STORES'
-  };
+const PAGE_LABELS = {
+  "/": "01 / HOME",
+  "/shop": "02 / SHOP",
+  "/story": "03 / STORY",
+  "/stores": "04 / STORES",
+};
+
+const METRICS = [
+  "D2C DIRECT",
+  "40,000+ HAPPY CUSTOMERS",
+  "5 PHYSICAL STORES",
+  "SWEETENED WITH DATE PALM",
+];
+
+export default function Footer() {
+  const { pathname } = useLocation();
 
   return (
-    <footer className="bottom-green-strip">
-      <div className="footer-container">
-        <div className="footer-page-indicator" id="footer-active-indicator">
-          {pageIndexes[activeView] || '01 / HOME'}
-        </div>
-        
+    <footer className="footer">
+      <div className="footer-inner">
+        <span className="footer-indicator">
+          {PAGE_LABELS[pathname] ?? "01 / HOME"}
+        </span>
+
         <div className="footer-metrics">
-          <span className="metric-bullet">D2C DIRECT</span>
-          <span className="metric-divider">•</span>
-          <span className="metric-bullet">40,000+ HAPPY CUSTOMERS</span>
-          <span className="metric-divider">•</span>
-          <span className="metric-bullet">5 PHYSICAL STORES</span>
-          <span className="metric-divider">•</span>
-          <span className="metric-bullet">SWEETENED WITH DATE PALM</span>
+          {METRICS.map((m, i) => (
+            <span key={m} className="footer-metrics-item">
+              {m}
+              {i < METRICS.length - 1 && (
+                <span className="footer-divider" aria-hidden="true">
+                  •
+                </span>
+              )}
+            </span>
+          ))}
         </div>
-        
-        <div className="footer-store-shortcut">
-          <a 
-            href="#stores" 
-            className="footer-stores-link" 
-            id="link-footer-stores"
-            onClick={(e) => {
-              e.preventDefault();
-              setActiveView('stores');
-            }}
-          >
-            5 LOCAL STORES
-          </a>
-        </div>
+
+        <Link to="/stores" className="footer-stores-link">
+          5 LOCAL STORES
+        </Link>
       </div>
     </footer>
   );

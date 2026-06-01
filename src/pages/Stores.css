@@ -1,0 +1,247 @@
+.stores-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto var(--spacing-lg);
+}
+
+.stores-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  margin-bottom: var(--spacing-xs);
+}
+
+.stores-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.75;
+}
+
+.stores-container {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: var(--spacing-lg);
+  align-items: start;
+}
+
+/* Store list */
+.stores-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.store-card {
+  background-color: var(--color-white);
+  border-radius: 16px;
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-premium);
+  border: 1px solid rgba(58, 36, 24, 0.03);
+  transition: var(--transition-smooth);
+  position: relative;
+  cursor: pointer;
+}
+
+.store-card:hover,
+.store-card.active {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--color-green);
+}
+
+.store-card.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20px;
+  bottom: 20px;
+  width: 4px;
+  background-color: var(--color-green);
+  border-radius: 0 4px 4px 0;
+}
+
+.store-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.store-name {
+  font-size: 1.3rem;
+}
+
+.store-status {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: rgba(0, 98, 65, 0.08);
+  color: var(--color-green);
+  padding: 4px 10px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.store-address {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-bottom: 12px;
+}
+
+.store-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(58, 36, 24, 0.05);
+  padding-top: var(--spacing-xs);
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.store-hours {
+  font-weight: 500;
+}
+
+.tasting-bar-label {
+  color: var(--color-green);
+  font-weight: 700;
+}
+
+/* Map */
+.map-container {
+  border-radius: 24px;
+  height: 480px;
+  overflow: hidden;
+  box-shadow: var(--shadow-premium);
+  border: 1px solid rgba(58, 36, 24, 0.05);
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #eee7da;
+}
+
+.map-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(58, 36, 24, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(58, 36, 24, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.map-route {
+  position: absolute;
+  width: 70%;
+  height: 60%;
+  top: 20%;
+  left: 15%;
+  border: 3px dashed rgba(0, 98, 65, 0.15);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.map-pin {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-green);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  cursor: pointer;
+  box-shadow: -2px 2px 4px rgba(58, 36, 24, 0.1);
+  transition: var(--transition-smooth);
+}
+
+.map-pin.active {
+  background-color: var(--color-espresso);
+  transform: rotate(-45deg) scale(1.25);
+  z-index: 10;
+}
+
+.map-pin::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-cream);
+  border-radius: 50%;
+  top: 8px;
+  left: 8px;
+}
+
+.map-pin-pulse {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--color-green);
+  border-radius: 50%;
+  top: -10px;
+  left: -10px;
+  opacity: 0;
+  animation: pinPulse 2s infinite ease-out;
+  pointer-events: none;
+}
+
+.map-pin.active .map-pin-pulse {
+  border-color: var(--color-espresso);
+}
+
+@keyframes pinPulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.map-info {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  background-color: rgba(255, 253, 248, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(58, 36, 24, 0.1);
+  border: 1px solid rgba(58, 36, 24, 0.05);
+}
+
+.map-info h4 {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.map-info p {
+  font-size: 0.8rem;
+  color: var(--color-muted-text);
+  margin-bottom: 8px;
+}
+
+.map-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: rgba(0, 98, 65, 0.08);
+  color: var(--color-green);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .stores-container {
+    grid-template-columns: 1fr;
+  }
+  .map-container {
+    height: 380px;
+  }
+}

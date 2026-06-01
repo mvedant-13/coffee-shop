@@ -1,101 +1,102 @@
-import React from 'react';
+import { useState, Fragment } from "react";
+import { NavLink, Link } from "react-router-dom";
+import "./Header.css";
 
-export default function Header({ activeView, setActiveView, mobileMenuOpen, setMobileMenuOpen }) {
-  const navItems = [
-    { id: 'home', label: 'HOME' },
-    { id: 'shop', label: 'SHOP' },
-    { id: 'story', label: 'STORY' },
-    { id: 'stores', label: 'STORES' }
-  ];
+const NAV_ITEMS = [
+  { to: "/", label: "HOME" },
+  { to: "/shop", label: "SHOP" },
+  { to: "/story", label: "STORY" },
+  { to: "/stores", label: "STORES" },
+];
 
-  const handleLinkClick = (e, viewId) => {
-    e.preventDefault();
-    setActiveView(viewId);
-    setMobileMenuOpen(false);
-  };
+export default function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <>
-      <header className="global-header">
-        <div className="header-container">
-          <a 
-            href="#home" 
-            className="logo" 
-            id="nav-logo" 
+      <header className="header">
+        <div className="header-inner">
+          <Link
+            to="/"
+            className="logo"
             aria-label="REDEFINED Home"
-            onClick={(e) => handleLinkClick(e, 'home')}
+            onClick={closeMenu}
           >
-            <img 
-              src="/Redefined-monogram.png" 
-              alt="REDEFINED Logo Monogram" 
-              className="logo-svg" 
-              style={{ width: '42px', height: '42px', objectFit: 'contain' }}
+            <img
+              src="/images/Redefined-monogram.png"
+              alt="REDEFINED"
+              className="logo-mark"
             />
-            <span className="logo-text">REDEFINED</span>
-          </a>
-          
-          <nav className="desktop-nav" aria-label="Main Navigation">
-            {navItems.map((item, index) => (
-              <React.Fragment key={item.id}>
-                <a 
-                  href={`#${item.id}`} 
-                  className={`nav-link ${activeView === item.id ? 'active' : ''}`} 
-                  id={`link-${item.id}`}
-                  onClick={(e) => handleLinkClick(e, item.id)}
+            <span className="logo-name">REDEFINED</span>
+          </Link>
+
+          <nav className="desktop-nav" aria-label="Main navigation">
+            {NAV_ITEMS.map(({ to, label }, i) => (
+              <Fragment key={to}>
+                <NavLink
+                  to={to}
+                  end={to === "/"}
+                  className={({ isActive }) =>
+                    `nav-link${isActive ? " active" : ""}`
+                  }
                 >
-                  {item.label}
-                </a>
-                {index < navItems.length - 1 && <span className="nav-separator">|</span>}
-              </React.Fragment>
+                  {label}
+                </NavLink>
+                {i < NAV_ITEMS.length - 1 && (
+                  <span className="nav-sep" aria-hidden="true">
+                    |
+                  </span>
+                )}
+              </Fragment>
             ))}
           </nav>
-          
-          <div className="header-cta">
-            <a 
-              href="https://blinkit.com/s/?q=redefined+coffee" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="btn-primary" 
-              id="btn-header-buy"
-            >
-              BUY NOW
-            </a>
-          </div>
-          
-          {/* Mobile Menu Toggle */}
-          <button 
-            className={`mobile-nav-toggle ${mobileMenuOpen ? 'active' : ''}`} 
-            id="btn-mobile-toggle" 
-            aria-label="Toggle Menu"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+
+          <a
+            href="https://blinkit.com/s/?q=redefined+coffee"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary header-cta"
           >
-            <span className="bar" style={mobileMenuOpen ? { transform: 'rotate(45deg) translate(6px, 6px)' } : {}}></span>
-            <span className="bar" style={mobileMenuOpen ? { opacity: 0 } : {}}></span>
-            <span className="bar" style={mobileMenuOpen ? { transform: 'rotate(-45deg) translate(5px, -5px)' } : {}}></span>
+            BUY NOW
+          </a>
+
+          <button
+            className={`menu-toggle${menuOpen ? " open" : ""}`}
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((o) => !o)}
+          >
+            <span className="bar" />
+            <span className="bar" />
+            <span className="bar" />
           </button>
         </div>
       </header>
 
-      {/* Mobile Drawer Navigation */}
-      <div className={`mobile-drawer ${mobileMenuOpen ? 'active' : ''}`} id="mobile-menu-drawer">
-        <nav className="mobile-nav" aria-label="Mobile Navigation">
-          {navItems.map((item) => (
-            <a 
-              key={item.id}
-              href={`#${item.id}`} 
-              className="mobile-link" 
-              id={`mob-link-${item.id}`}
-              onClick={(e) => handleLinkClick(e, item.id)}
+      <div
+        className={`mobile-drawer${menuOpen ? " open" : ""}`}
+        aria-hidden={!menuOpen}
+      >
+        <nav className="mobile-nav" aria-label="Mobile navigation">
+          {NAV_ITEMS.map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={to === "/"}
+              className="mobile-link"
+              onClick={closeMenu}
             >
-              {item.label}
-            </a>
+              {label}
+            </NavLink>
           ))}
-          <a 
-            href="https://blinkit.com/s/?q=redefined+coffee" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="btn-primary mob-cta" 
-            id="mob-btn-buy"
+          <a
+            href="https://blinkit.com/s/?q=redefined+coffee"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary mob-cta"
+            onClick={closeMenu}
           >
             BUY ON BLINKIT
           </a>
