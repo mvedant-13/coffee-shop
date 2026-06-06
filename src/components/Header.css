@@ -192,10 +192,11 @@
   }
 
   .drawer-backdrop {
-    display: block;
+    display: none;
   }
 
   .drawer-backdrop.open {
+    display: block;
     opacity: 1;
   }
 }
