@@ -5,12 +5,14 @@
 
 .story-title {
   font-size: clamp(2.5rem, 5.5vw, 3.8rem);
+  font-weight: var(--fw-bold);
   line-height: 1.1;
   margin-bottom: var(--spacing-md);
 }
 
 .story-subtitle {
   font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  font-weight: var(--fw-regular);
   opacity: 0.8;
   margin-bottom: var(--spacing-lg);
 }
@@ -32,8 +34,15 @@
 
 .story-card-title {
   font-size: 1.85rem;
+  font-weight: var(--fw-bold);
   line-height: 1.15;
   margin-bottom: 16px;
+}
+
+.card-desc {
+  font-size: 0.95rem;
+  font-weight: var(--fw-regular);
+  opacity: 0.75;
 }
 
 .espresso-banner {
@@ -47,7 +56,7 @@
 
 .espresso-banner-text {
   font-size: 1.4rem;
-  font-weight: 500;
+  font-weight: var(--fw-medium);
 }
 
 .d2c-section {
@@ -58,11 +67,14 @@
 
 .d2c-title {
   font-size: 1.8rem;
+  font-weight: var(--fw-bold);
   margin-bottom: var(--spacing-xs);
 }
 
 .d2c-text {
   font-size: 1.05rem;
+  font-weight: var(--fw-regular);
+  font-style: italic;
   opacity: 0.85;
 }
 

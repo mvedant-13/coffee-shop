@@ -34,17 +34,20 @@ export default function FlavorModal({ flavor, onClose }) {
 
           <div className="modal-info">
             <span className="modal-tag">PREMIUM FLAVOUR</span>
-            <h2 className="modal-title font-serif" id="modal-flavor-name">
+            <h2 className="modal-title" id="modal-flavor-name">
               {flavor.name}
             </h2>
             <p className="modal-tagline">{flavor.tagline}</p>
 
             <div className="sensory-profile">
-              <h4 className="profile-header font-serif">SENSORY PROFILE</h4>
+              <h4 className="profile-header">SENSORY PROFILE</h4>
               <div className="profile-bars">
                 {BARS.map(({ label, key }) => (
                   <div key={key} className="bar-row">
-                    <span className="bar-label">{label}</span>
+                    <div className="bar-row-header">
+                      <span className="bar-label">{label}</span>
+                      <span className="bar-value">{flavor.sensory[key]}%</span>
+                    </div>
                     <div className="bar-track">
                       <div
                         className="bar-fill"
@@ -57,9 +60,7 @@ export default function FlavorModal({ flavor, onClose }) {
             </div>
 
             <div className="ingredients-section">
-              <h4 className="ingredients-header font-serif">
-                INGREDIENTS & INTEGRITY
-              </h4>
+              <h4 className="ingredients-header">INGREDIENTS & INTEGRITY</h4>
               <p className="ingredients-text">{flavor.ingredients}</p>
             </div>
 

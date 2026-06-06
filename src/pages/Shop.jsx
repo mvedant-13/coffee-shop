@@ -10,7 +10,7 @@ export default function Shop() {
     <section className="page-view">
       <div className="shop-header">
         <span className="view-tag">SHOP</span>
-        <h1 className="shop-title font-serif">Choose your cup.</h1>
+        <h1 className="shop-title">Choose your cup.</h1>
         <p className="shop-subtitle">
           Café-style coffee, crafted for milk. Sourced direct, sweetened
           naturally.
@@ -28,7 +28,7 @@ export default function Shop() {
               />
             </div>
             <div className="card-info">
-              <h3 className="product-name font-serif">{flavor.name}</h3>
+              <h3 className="product-name">{flavor.name}</h3>
               <p className="product-desc">{flavor.desc}</p>
               <div className="product-actions">
                 <button

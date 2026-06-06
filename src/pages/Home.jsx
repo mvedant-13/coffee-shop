@@ -7,7 +7,7 @@ export default function Home() {
       <div className="hero-section">
         <div className="hero-text">
           <span className="view-tag">HOME</span>
-          <h1 className="hero-title font-serif">
+          <h1 className="hero-title">
             Café Taste.
             <br />
             No Refined Sugar.
@@ -33,7 +33,7 @@ export default function Home() {
       <div className="features-grid">
         <div className="feature-card">
           <span className="card-category">RANGE</span>
-          <h3 className="card-title font-serif">Five café favourites.</h3>
+          <h3 className="card-title">Five café favourites.</h3>
           <ul className="card-list">
             <li>Salted Caramel Latte</li>
             <li>French Vanilla Latte</li>
@@ -45,7 +45,7 @@ export default function Home() {
 
         <div className="feature-card">
           <span className="card-category">RITUAL</span>
-          <h3 className="card-title font-serif">
+          <h3 className="card-title">
             One sachet.
             <br />
             Hot milk.
@@ -58,7 +58,7 @@ export default function Home() {
 
         <div className="feature-card">
           <span className="card-category">PROMISE</span>
-          <h3 className="card-title font-serif">
+          <h3 className="card-title">
             No machine.
             <br />
             No mess.
@@ -73,7 +73,7 @@ export default function Home() {
       <div className="sweetener-banner">
         <div className="sweetener-content">
           <span className="banner-tag">NATURAL REVOLUTION</span>
-          <h2 className="banner-title font-serif">The Power of Date Palm</h2>
+          <h2 className="banner-title">The Power of Date Palm</h2>
           <p className="banner-text">
             We completely eliminated refined sugars. REDEFINED coffee is
             sweetened exclusively with natural, low-glycemic{" "}

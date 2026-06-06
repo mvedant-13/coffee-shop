@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import "./Header.css";
 
@@ -11,8 +11,13 @@ const NAV_ITEMS = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-
   const closeMenu = () => setMenuOpen(false);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
 
   return (
     <>
@@ -29,27 +34,20 @@ export default function Header() {
               alt="REDEFINED"
               className="logo-mark"
             />
-            <span className="logo-name">REDEFINED</span>
           </Link>
 
           <nav className="desktop-nav" aria-label="Main navigation">
-            {NAV_ITEMS.map(({ to, label }, i) => (
-              <Fragment key={to}>
-                <NavLink
-                  to={to}
-                  end={to === "/"}
-                  className={({ isActive }) =>
-                    `nav-link${isActive ? " active" : ""}`
-                  }
-                >
-                  {label}
-                </NavLink>
-                {i < NAV_ITEMS.length - 1 && (
-                  <span className="nav-sep" aria-hidden="true">
-                    |
-                  </span>
-                )}
-              </Fragment>
+            {NAV_ITEMS.map(({ to, label }) => (
+              <NavLink
+                key={to}
+                to={to}
+                end={to === "/"}
+                className={({ isActive }) =>
+                  `nav-link${isActive ? " active" : ""}`
+                }
+              >
+                {label}
+              </NavLink>
             ))}
           </nav>
 
@@ -64,7 +62,7 @@ export default function Header() {
 
           <button
             className={`menu-toggle${menuOpen ? " open" : ""}`}
-            aria-label="Toggle menu"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((o) => !o)}
           >
@@ -74,6 +72,13 @@ export default function Header() {
           </button>
         </div>
       </header>
+
+      {/* Backdrop */}
+      <div
+        className={`drawer-backdrop${menuOpen ? " open" : ""}`}
+        onClick={closeMenu}
+        aria-hidden="true"
+      />
 
       <div
         className={`mobile-drawer${menuOpen ? " open" : ""}`}
@@ -85,7 +90,9 @@ export default function Header() {
               key={to}
               to={to}
               end={to === "/"}
-              className="mobile-link"
+              className={({ isActive }) =>
+                `mobile-link${isActive ? " active" : ""}`
+              }
               onClick={closeMenu}
             >
               {label}

@@ -1,3 +1,15 @@
+/* ── Overlay ──
+   Key fix for mobile centering:
+   align-items: flex-start + overflow-y: auto on the overlay,
+   margin: auto on the card.
+
+   This way:
+   - When the card is shorter than the viewport → margin: auto
+     distributes free space equally above/below → visually centred.
+   - When the card is taller than the viewport  → the overlay scrolls
+     and the top of the card is always reachable (align-items: center
+     would clip it with no way to scroll back up).
+── */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -7,10 +19,12 @@
   z-index: 200;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* was: center — caused clipping on mobile */
+  overflow-y: auto; /* overlay itself scrolls when card is tall */
   padding: var(--spacing-md);
 }
 
+/* ── Card ── */
 .modal-card {
   background-color: var(--color-cream);
   border-radius: 24px;
@@ -19,6 +33,7 @@
   box-shadow: 0 40px 100px rgba(58, 36, 24, 0.25);
   overflow: hidden;
   position: relative;
+  margin: auto; /* absorbs free space → centres when viewport is tall enough */
   animation: modalIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -33,6 +48,7 @@
   }
 }
 
+/* ── Close button ── */
 .modal-close {
   position: absolute;
   top: 20px;
@@ -48,6 +64,8 @@
   color: var(--color-espresso);
   z-index: 10;
   transition: var(--transition-quick);
+  cursor: pointer;
+  border: none;
 }
 
 .modal-close:hover {
@@ -55,32 +73,40 @@
   color: var(--color-cream);
 }
 
+/* ── Two-column layout ── */
 .modal-layout {
   display: grid;
   grid-template-columns: 0.95fr 1.05fr;
 }
 
+/* ── Image column ── */
 .modal-image-col {
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  min-height: 360px;
 }
 
 .modal-image {
   width: 100%;
-  height: 100%;
-  min-height: 360px;
-  object-fit: cover;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
   display: block;
+  filter: drop-shadow(0 12px 32px rgba(58, 36, 24, 0.2));
 }
 
+/* ── Info panel ── */
 .modal-info {
-  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) 0;
+  padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
 }
 
 .modal-tag {
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   letter-spacing: 0.15em;
   color: var(--color-green);
   text-transform: uppercase;
@@ -89,17 +115,19 @@
 
 .modal-title {
   font-size: 2.5rem;
+  font-weight: var(--fw-bold);
   line-height: 1.1;
   margin-bottom: 4px;
 }
 
 .modal-tagline {
   font-size: 1.1rem;
+  font-weight: var(--fw-regular);
   opacity: 0.7;
   margin-bottom: var(--spacing-md);
 }
 
-/* Sensory bars */
+/* ── Sensory profile ── */
 .sensory-profile {
   border-top: 1px solid rgba(58, 36, 24, 0.08);
   padding-top: var(--spacing-sm);
@@ -109,6 +137,7 @@
 .profile-header,
 .ingredients-header {
   font-size: 0.75rem;
+  font-weight: var(--fw-bold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 12px;
@@ -117,7 +146,7 @@
 .profile-bars {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .bar-row {
@@ -126,9 +155,22 @@
   gap: 4px;
 }
 
+.bar-row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
 .bar-label {
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: var(--fw-medium);
+}
+
+.bar-value {
+  font-size: 0.72rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-green);
+  letter-spacing: 0.04em;
 }
 
 .bar-track {
@@ -146,34 +188,47 @@
   transition: width 0.8s ease;
 }
 
-/* Ingredients */
+/* ── Ingredients ── */
 .ingredients-section {
   border-top: 1px solid rgba(58, 36, 24, 0.08);
   padding-top: var(--spacing-sm);
+  flex: 1;
   margin-bottom: var(--spacing-md);
 }
 
 .ingredients-text {
   font-size: 0.85rem;
+  font-weight: var(--fw-regular);
   opacity: 0.8;
 }
 
-/* Responsive */
+/* ── Mobile ──
+   Stack to single column. The overlay centering fix above
+   already handles the modal-not-at-centre problem on mobile.
+── */
 @media (max-width: 768px) {
-  .modal-card {
-    max-height: 90vh;
-    overflow-y: auto;
+  .modal-overlay {
+    padding: var(--spacing-sm); /* tighter padding on small screens */
   }
 
   .modal-layout {
     grid-template-columns: 1fr;
   }
 
+  .modal-image-col {
+    min-height: unset;
+    padding: 24px 32px;
+  }
+
   .modal-image {
-    min-height: 220px;
+    max-height: 260px;
   }
 
   .modal-info {
     padding: var(--spacing-md);
+  }
+
+  .modal-title {
+    font-size: 1.8rem;
   }
 }

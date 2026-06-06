@@ -10,9 +10,7 @@ export default function Stores() {
     <section className="page-view">
       <div className="stores-header">
         <span className="view-tag">STORES</span>
-        <h1 className="stores-title font-serif">
-          Experience REDEFINED in person.
-        </h1>
+        <h1 className="stores-title">Experience REDEFINED in person.</h1>
         <p className="stores-subtitle">
           Visit one of our 5 physical stores and testing bars. Grab a cup,
           sample our natural date-palm recipes, and meet our brewers.
@@ -28,7 +26,7 @@ export default function Stores() {
               onClick={() => setSelected(i)}
             >
               <div className="store-card-header">
-                <h3 className="store-name font-serif">{store.name}</h3>
+                <h3 className="store-name">{store.name}</h3>
                 <span className="store-status">{store.status}</span>
               </div>
               <p className="store-address">{store.address}</p>
