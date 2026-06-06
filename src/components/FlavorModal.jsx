@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import "./FlavorModal.css";
 
 const BARS = [
@@ -7,9 +9,20 @@ const BARS = [
 ];
 
 export default function FlavorModal({ flavor, onClose }) {
+  useEffect(() => {
+    if (flavor) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [flavor]);
+
   if (!flavor) return null;
 
-  return (
+  return createPortal(
     <div
       className="modal-overlay"
       role="dialog"
@@ -75,6 +88,7 @@ export default function FlavorModal({ flavor, onClose }) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
